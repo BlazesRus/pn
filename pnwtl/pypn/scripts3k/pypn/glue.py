@@ -30,8 +30,8 @@ class StdOutCapture:
 def registerScript(f, group, scriptName):
 	""" This is called by the script decorator to register
 	a script. """
-	scripts[f.func_name] = f
-	pn.RegisterScript(f.func_name, group, scriptName)
+	scripts[f.__name__] = f
+	pn.RegisterScript(f.__name__, group, scriptName)
 
 def runScript(name):
 	""" This is called by PN to run a script by name. """

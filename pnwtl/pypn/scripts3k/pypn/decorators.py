@@ -26,7 +26,7 @@ def script(name=None, group="Python", auto_undo=True):
 					s.EndUndoAction()
 		
 		if name == None:
-			scriptName = f.func_name
+			scriptName = f.__name__
 		else:
 			scriptName = name
 		
