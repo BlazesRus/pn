@@ -116,6 +116,11 @@ public:
 		COMMAND_ID_HANDLER(ID_FILE_PRINT, OnPrint)
 		COMMAND_ID_HANDLER(ID_FILE_PRINT_SETUP, OnPrintSetup)
 		COMMAND_ID_HANDLER(ID_FILE_OPENCONTAININGFOLDER, OnOpenContainingFolder)
+		COMMAND_ID_HANDLER(ID_FILE_CMDINCONTAININGFOLDER, OnCmdInContainingFolder)
+		COMMAND_ID_HANDLER(ID_FILE_FARINCONTAININGFOLDER, OnFarInContainingFolder)
+		COMMAND_ID_HANDLER(ID_FILE_WINMERGECURRENTFILE, OnWinmergeCurrentFile)
+		
+
 		COMMAND_ID_HANDLER(ID_FILE_SHELLOPEN, OnShellOpen)
 
 		COMMAND_ID_HANDLER(ID_EXPORT_RTF, OnExportRTF)
@@ -241,6 +246,10 @@ public:
 	LRESULT OnPrint(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnPrintSetup(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnOpenContainingFolder(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	LRESULT OnCmdInContainingFolder(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	LRESULT OnFarInContainingFolder(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	LRESULT OnWinmergeCurrentFile(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+
 	LRESULT OnShellOpen(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnExportRTF(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnExportHTML(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);

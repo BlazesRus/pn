@@ -1046,6 +1046,53 @@ LRESULT CChildFrame::OnOpenContainingFolder(WORD /*wNotifyCode*/, WORD /*wID*/, 
 	return 0;
 }
 
+LRESULT CChildFrame::OnCmdInContainingFolder(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	if(CanSave())
+	{
+		CFileName fn(GetFileName().c_str());
+		::ShellExecute (NULL, _T("open"), _T("cmd.exe"), NULL, fn.GetPath().c_str(), SW_SHOW );
+	}
+
+	return 0;
+}
+
+LRESULT CChildFrame::OnFarInContainingFolder(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	if(CanSave())
+	{
+		std::string spath("far.exe");
+		char* pPath;
+		pPath = getenv ("PNFARCMD");
+		if (pPath!=NULL)
+		{
+			spath=std::string(pPath);
+		}
+			CFileName fn(GetFileName().c_str());
+		::ShellExecute (NULL, _T("open"), CString(spath.c_str()), fn.GetPath().c_str(), fn.GetPath().c_str(), SW_SHOW );
+	}
+
+	return 0;
+}
+
+LRESULT CChildFrame::OnWinmergeCurrentFile(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	if(CanSave())
+	{
+		std::string spath("WinMergeU.exe");
+		char* pPath;
+		pPath = getenv ("PNWINMERGECMD");
+		if (pPath!=NULL)
+		{
+			spath=std::string(pPath);
+		}
+			CFileName fn(GetFileName().c_str());
+		::ShellExecute (NULL, _T("open"), CString(spath.c_str()), GetFileName().c_str(), fn.GetPath().c_str(), SW_SHOW );
+	}
+
+	return 0;
+}
+
 LRESULT CChildFrame::OnShellOpen(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
 	if(CanSave())
