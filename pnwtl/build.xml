@@ -6,6 +6,9 @@
 	<property name="pnarcname" value="stier08-portablepn-release-${yyyymmdd}"/>
 	<property name="pypnarcname" value="stier08-pypn-release-${yyyymmdd}"/>
 	<property name="distdir" value="../dist"/>
+	<property name="api-ms-win-dir" value="C:/Program Files (x86)/Windows Kits/10/Redist/ucrt/DLLs/x86"/>
+	<property name="vs-redist-dir" value="C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/redist/x86/Microsoft.VC140.CRT"/>
+  
 	
 	<target name="zip" depends="zippn,zippypn"/>
 	<target name="zippn">
@@ -46,8 +49,17 @@
 			<zipfileset  dir="bin">
 				<include name="**/*.pdb"/>
 				<exclude name="**/pypn.pdb"/>
-			</zipfileset >
-			
+			</zipfileset>
+
+			<zipfileset  dir="${api-ms-win-dir}">
+				<include name="api-ms-win-core-*.dll"/>
+				<include name="api-ms-win-crt-*.dll"/>
+				<include name="ucrtbase.dll"/>
+			</zipfileset>
+
+			<zipfileset  dir="${vs-redist-dir}">
+				<include name="*.dll"/>
+			</zipfileset >      
 		</zip>
 	</target>
 	
