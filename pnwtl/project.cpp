@@ -26,12 +26,18 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-#if (_MSC_VER >= 1300)
+#if (_MSC_VER >= 1900)
+	#include <unordered_map>
+	typedef std::unordered_map<tstring, bool> tstring_bool_map;
+#elif (_MSC_VER >= 1300) &&  (_MSC_VER < 1900)
 	#pragma warning( push )
 	#pragma warning(disable: 4996) // see MSDN on hash_map
 	#include <hash_map>
+	typedef stdext::hash_map<tstring, bool> tstring_bool_map;
 #else
 	#include <map>
+	typedef std::map<tstring, bool> tstring_bool_map;
+
 #endif
 
 namespace Projects
@@ -1336,7 +1342,7 @@ void Workspace::parse()
 //////////////////////////////////////////////////////////////////////////////
 
 #if (_ATL_VER >= 0x0700)
-	class ProjectViewState::ExpandCache : public stdext::hash_map<tstring, bool>{};
+	class ProjectViewState::ExpandCache : public tstring_bool_map {};
 #else
 	class ProjectViewState::ExpandCache : public std::map<tstring, bool>{};
 #endif
@@ -1505,6 +1511,6 @@ void ProjectViewState::endElement(LPCTSTR name)
 
 } // namespace Projects
 
-#if (_MSC_VER >= 1300)
+#if (_MSC_VER >= 1300) && (_MSC_VER < 1900)
 	#pragma warning( pop ) // 4996 - deprecated hash_map.
 #endif

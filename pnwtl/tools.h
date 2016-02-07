@@ -140,7 +140,7 @@ class CLastErrorInfo
 	public:
 		CLastErrorInfo()
 		{
-			DWORD m_nRetCode = ::GetLastError();
+			m_nRetCode = ::GetLastError();
 			m_lpMsgBuf = NULL;
 			::FormatMessage(
 				FORMAT_MESSAGE_ALLOCATE_BUFFER |
@@ -173,7 +173,7 @@ class CLastErrorInfo
 
 	protected:
 		LPVOID	m_lpMsgBuf;
-		int		m_nRetCode;
+		DWORD		m_nRetCode;
 };
 
 /**

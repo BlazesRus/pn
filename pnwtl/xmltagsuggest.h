@@ -8,8 +8,13 @@
  * the conditions under which this source may be modified / distributed.
  */
 
-#include <hash_map>
-typedef stdext::hash_map< std::string, string_list > string_list_map;
+#if (_MSC_VER >= 1900)
+	#include <unordered_map>
+	typedef std::unordered_map< std::string, string_list > string_list_map;
+#else
+	#include <hash_map>
+	typedef stdext::hash_map< std::string, string_list > string_list_map;
+#endif
 
 class XmlTagSuggest
 {

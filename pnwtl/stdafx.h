@@ -19,12 +19,20 @@
 	#pragma once
 #endif
 
-// Change these values to use different versions
-#define WINVER			0x0500	// Changed to allow CDotNetTabCtrl to compile with COLOR_HOTLIGHT
-#define _WIN32_WINNT	0x0600
-#define _WIN32_IE		0x0600
-#define _RICHEDIT_VER	0x0100
-
+#if (_MSC_VER >= 1900)
+	// windows xp support is dropped starting from VS2015
+	// stier08:  could not figure out how to get a green build with old constants
+	#define WINVER			0x0601
+	#define _WIN32_WINNT	0x0601
+	#define _WIN32_IE		0x0601
+	#define _RICHEDIT_VER	0x0100
+#else
+	// Change these values to use different versions
+	#define WINVER			0x0500	// Changed to allow CDotNetTabCtrl to compile with COLOR_HOTLIGHT
+	#define _WIN32_WINNT	0x0600
+	#define _WIN32_IE		0x0600
+	#define _RICHEDIT_VER	0x0100
+#endif
 // Disable the "unreferenced formal parameter" warning. I see no reason for it.
 #pragma warning( disable: 4100 )
 

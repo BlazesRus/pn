@@ -25,12 +25,17 @@
 static char THIS_FILE[] = __FILE__;
 #endif
 
-#if (_MSC_VER >= 1300)
+#if (_MSC_VER >= 1900)
+	#include <unordered_map>
+	#define tstring_folder_map std::unordered_map<tstring, Folder*> 
+#elif (_MSC_VER >= 1300) && (_MSC_VER < 1900)
 	#pragma warning( push )
 	#pragma warning(disable: 4996) // see MSDN on hash_map
 	#include <hash_map>
+	#define tstring_folder_map stdext::hash_map<tstring, Folder*>
 #else
 	#include <map>
+	#define tstring_folder_map std::map<tstring, Folder*>
 #endif
 
 namespace Projects
@@ -231,7 +236,7 @@ bool MagicFolder::RenameFolder(LPCTSTR newName)
 // MagicFolderCache::FolderMap
 //////////////////////////////////////////////////////////////////////////////
 
-class MagicFolderCache::FolderMap : public stdext::hash_map<tstring, Folder*>
+class MagicFolderCache::FolderMap : public tstring_folder_map
 {
 	public:
 		typedef MagicFolderCache::FolderMap thisClass;

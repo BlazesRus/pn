@@ -277,7 +277,8 @@ inline int AtlTaskDialog(HWND hWndParent,
 
 #endif // _WIN32_WINNT < 0x0600
 
-#if !(defined(IDI_SHIELD))
+#if !(defined(IDI_SHIELD)) || (_MSC_VER >= 1900)
+// stier08: (_MSC_VER >= 1900) added to get a green build
 #define TD_WARNING_ICON         MAKEINTRESOURCEW(-1)
 #define TD_ERROR_ICON           MAKEINTRESOURCEW(-2)
 #define TD_INFORMATION_ICON     MAKEINTRESOURCEW(-3)
