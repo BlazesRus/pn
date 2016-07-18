@@ -3,8 +3,8 @@
 	 <tstamp>
     <format property="yyyymmdd" pattern="yyyyMMdd" locale="en,GB"/>
   </tstamp>
-	<property name="pnarcname" value="stier08-portablepn-vs2015wip-release-${yyyymmdd}"/>
-	<property name="pypnarcname" value="stier08-pypn-v2105wip-release-${yyyymmdd}"/>
+	<property name="pnarcname" value="stier08-portablepn-vs2015wp24-release-${yyyymmdd}"/>
+	<property name="pypnarcname" value="stier08-pypn-vs2105wp34-release-${yyyymmdd}"/>
 	<property name="distdir" value="../dist"/>
 	
 	<target name="zip" depends="zippn,zippypn"/>
