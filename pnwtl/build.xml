@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<project name="pn" default="zip" basedir=".">
+	 <tstamp>
+    <format property="yyyymmdd" pattern="yyyyMMdd" locale="en,GB"/>
+  </tstamp>
+	<property name="pnarcname" value="stier08-portablepn-vs2015wip-release-${yyyymmdd}"/>
+	<property name="pypnarcname" value="stier08-pypn-v2105wip-release-${yyyymmdd}"/>
+	<property name="distdir" value="../dist"/>
+	
+	<target name="zip" depends="zippn,zippypn"/>
+	<target name="zippn">
+		<zip destfile="${distdir}\${pnarcname}.zip">
+			<zipfileset  dir="bin">
+				<include name="*.dll"/>
+				<include name="*.exe"/>
+				<include name="pn.bat"/>
+				<include name="schemes/*.scheme"/>
+ 				<include name="schemes/extmap.dat"/>
+ 				<include name="schemes/*.api"/>
+ 				<include name="presets/*.xml"/>
+ 				<include name="ctags/*.*"/>
+				<exclude name="*test*.dll"/>
+				<exclude name="test.*"/>
+				<exclude name="boost_python*.dll"/>
+				<exclude name="pypn.dll"/>
+			</zipfileset >
+			<zipfileset  dir="doc">
+				<include name="credits.txt"/>
+				<include name="history.txt"/>
+				<include name="license.txt"/>
+				<include name="pcre-license.txt"/>
+				<include name="ctags_README"/>
+				<include name="ctags_COPYING"/>
+				<include name="license.html"/>
+			</zipfileset >
+			<zipfileset  dir="doc\help">
+				<include name="pn2.chm"/>
+			</zipfileset >
+			<zipfileset  dir="bin\clips" prefix="clips">
+				<include name="*\*.clips"/>
+			</zipfileset >
+			<zipfileset  dir="installer\configs\portable">
+				<include name="config.xml"/>
+			</zipfileset >
+
+			<zipfileset  dir="bin">
+				<include name="**/*.pdb"/>
+				<exclude name="**/pypn.pdb"/>
+			</zipfileset >
+			
+		</zip>
+	</target>
+	
+
+	<target name="zippypn">
+		<zip destfile="${distdir}\${pypnarcname}.zip">
+			<zipfileset  dir="bin">
+				<include name="pypn.dll"/>
+				<include name="pypn.pdf"/>
+				<include name="boost_python*.dll"/>
+			</zipfileset >
+			<zipfileset  dir="pypn\scripts3k">
+				<include name="**/*.py"/>
+			</zipfileset >
+		</zip>
+	</target>
+
+
+</project>
+
+
