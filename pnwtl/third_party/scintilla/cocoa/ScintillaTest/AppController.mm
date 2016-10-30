@@ -77,15 +77,20 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
   NSString* path = [[NSBundle mainBundle] pathForResource: @"TestData" 
                                                    ofType: @"sql" inDirectory: nil];
   
-  NSString* sql = [NSString stringWithContentsOfFile: path
+  sql = [NSString stringWithContentsOfFile: path
                                             encoding: NSUTF8StringEncoding
                                                error: &error];
+
+  [sql retain];
+
   if (error && [[error domain] isEqual: NSCocoaErrorDomain])
     NSLog(@"%@", error);
   
   [mEditor setString: sql];
 
   [self setupEditor];
+  
+  sciExtra = nil;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -100,7 +105,7 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
   // alternatively: [mEditor setEditorProperty: SCI_SETLEXERLANGUAGE parameter: nil value: (sptr_t) "mysql"];
   
   // Number of styles we use with this lexer.
-  [mEditor setGeneralProperty: SCI_SETSTYLEBITS parameter: 5 value: 0];
+  [mEditor setGeneralProperty: SCI_SETSTYLEBITS value: [mEditor getGeneralProperty: SCI_GETSTYLEBITSNEEDED]];
   
   // Keywords to highlight. Indices are:
   // 0 - Major keywords (reserved keywords)
@@ -116,10 +121,12 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
   [mEditor setReferenceProperty: SCI_SETKEYWORDS parameter: 7 value: user_keywords];
   
   // Colors and styles for various syntactic elements. First the default style.
-  [mEditor setStringProperty: SCI_STYLESETFONT parameter: STYLE_DEFAULT value: @"Andale Mono"];
+  [mEditor setStringProperty: SCI_STYLESETFONT parameter: STYLE_DEFAULT value: @"Helvetica"];
   // [mEditor setStringProperty: SCI_STYLESETFONT parameter: STYLE_DEFAULT value: @"Monospac821 BT"]; // Very pleasing programmer's font.
   [mEditor setGeneralProperty: SCI_STYLESETSIZE parameter: STYLE_DEFAULT value: 14];
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: STYLE_DEFAULT value: [NSColor blackColor]];
+
+  [mEditor setGeneralProperty: SCI_STYLECLEARALL parameter: 0 value: 0];	
   
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_DEFAULT value: [NSColor blackColor]];
   [mEditor setColorProperty: SCI_STYLESETFORE parameter: SCE_MYSQL_COMMENT fromHTML: @"#097BF7"];
@@ -211,6 +218,47 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
 
 //--------------------------------------------------------------------------------------------------
 
+/* XPM */
+static const char * box_xpm[] = {
+	"12 12 2 1",
+	" 	c None",
+	".	c #800000",
+	"   .........",
+	"  .   .   ..",
+	" .   .   . .",
+	".........  .",
+	".   .   .  .",
+	".   .   . ..",
+	".   .   .. .",
+	".........  .",
+	".   .   .  .",
+	".   .   . . ",
+	".   .   ..  ",
+	".........   "};
+
+
+- (void) showAutocompletion
+{
+	const char *words = "Babylon-5?1 Battlestar-Galactica Millennium-Falcon?2 Moya?2 Serenity Voyager";
+	[mEditor setGeneralProperty: SCI_AUTOCSETIGNORECASE parameter: 1 value:0];
+	[mEditor setGeneralProperty: SCI_REGISTERIMAGE parameter: 1 value:(sptr_t)box_xpm];
+	const int imSize = 12;
+	[mEditor setGeneralProperty: SCI_RGBAIMAGESETWIDTH parameter: imSize value:0];
+	[mEditor setGeneralProperty: SCI_RGBAIMAGESETHEIGHT parameter: imSize value:0];
+	char image[imSize * imSize * 4];
+	for (size_t y = 0; y < imSize; y++) {
+		for (size_t x = 0; x < imSize; x++) {
+			char *p = image + (y * imSize + x) * 4;
+			p[0] = 0xFF;
+			p[1] = 0xA0;
+			p[2] = 0;
+			p[3] = x * 23;
+		}
+	}
+	[mEditor setGeneralProperty: SCI_REGISTERRGBAIMAGE parameter: 2 value:(sptr_t)image];
+	[mEditor setGeneralProperty: SCI_AUTOCSHOW parameter: 0 value:(sptr_t)words];
+}
+
 - (IBAction) searchText: (id) sender
 {
   NSSearchField* searchField = (NSSearchField*) sender;
@@ -219,6 +267,37 @@ const char user_keywords[] = // Definition of own keywords, not used by MySQL.
                       wholeWord: NO
                        scrollTo: YES
                            wrap: YES];
+
+  long matchStart = [mEditor getGeneralProperty: SCI_GETSELECTIONSTART parameter: 0];
+  long matchEnd = [mEditor getGeneralProperty: SCI_GETSELECTIONEND parameter: 0];
+  [mEditor setGeneralProperty: SCI_FINDINDICATORFLASH parameter: matchStart value:matchEnd];
+
+  if ([[searchField stringValue] isEqualToString: @"XX"])
+    [self showAutocompletion];
+}
+
+- (IBAction) addRemoveExtra: (id) sender
+{
+	if (sciExtra) {
+		[sciExtra removeFromSuperview];
+		sciExtra = nil;
+	} else {
+		NSRect newFrame = mEditHost.frame;
+		newFrame.origin.x += newFrame.size.width + 5;
+		newFrame.origin.y += 46;
+		newFrame.size.width = 96;
+		newFrame.size.height -= 60;
+
+		sciExtra = [[[ScintillaView alloc] initWithFrame: newFrame] autorelease];
+		[[[mEditHost window]contentView] addSubview: sciExtra];
+		[sciExtra setGeneralProperty: SCI_SETWRAPMODE parameter: SC_WRAP_WORD value: 1];
+		[sciExtra setString: sql];
+	}
+}
+
+-(IBAction) setFontQuality: (id) sender
+{
+    [ScintillaView directCall:mEditor message:SCI_SETFONTQUALITY wParam:[sender tag] lParam:0];
 }
 
 @end
