@@ -7,6 +7,7 @@
 	<property name="pypnarcname" value="stier08-pypn-release-${yyyymmdd}"/>
 	<property name="distdir" value="../dist"/>
 	<property name="api-ms-win-dir" value="C:/Program Files (x86)/Windows Kits/10/Redist/ucrt/DLLs/x86"/>
+	<property name="api-ms-win7-dir" value="C:\Program Files (x86)/Microsoft SDKs/NuGetPackages/Microsoft.NETCore.Windows.ApiSets-x86/1.0.0/runtimes/win7-x86/native"/>
 	<property name="vs-redist-dir" value="C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/redist/x86/Microsoft.VC140.CRT"/>
   
 	
@@ -55,6 +56,11 @@
 				<include name="api-ms-win-core-*.dll"/>
 				<include name="api-ms-win-crt-*.dll"/>
 				<include name="ucrtbase.dll"/>
+			</zipfileset>
+      
+			<zipfileset  dir="${api-ms-win7-dir}">
+				<!--- Windows 7 support  --->
+				<include name="api-ms-win-core-winrt*.dll"/>
 			</zipfileset>
 
 			<zipfileset  dir="${vs-redist-dir}">
