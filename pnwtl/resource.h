@@ -715,7 +715,6 @@
 #define ID_REGEXP_0ORMOREMATCHES        32847
 #define ID_REGEXP_1ORMOREMATCHES        32848
 #define ID_REGEXP_GROUP                 32849
-#define ID_EDIT_DELETE                  32862
 #define ID_EDIT_INDENT                  32863
 #define ID_EDIT_UNINDENT                32864
 #define ID_FILE_SAVEALL                 32865
@@ -782,9 +781,6 @@
 #define ID_EDIT_COPYFILEPATH            32974
 #define ID_DUMMY_OPENCONTAININGFOLDER   32975
 #define ID_FILE_OPENCONTAININGFOLDER    32976
-#define ID_FILE_CMDINCONTAININGFOLDER   33161
-#define ID_FILE_FARINCONTAININGFOLDER	33162
-#define ID_FILE_WINMERGECURRENTFILE	33163
 #define ID_PROJECT_OPENFOLDER           32977
 #define ID_DUMMY_SHELLOPEN              32978
 #define ID_PROJECT_SHELLOPEN            32979
@@ -866,6 +862,10 @@
 #define ID_NEW_DEFAULT                  33158
 #define ID_NEW_PROJECT                  33159
 #define ID_WINDOWS_CURRENTEDITOR        33160
+#define ID_FILE_CMDINCONTAININGFOLDER   33161
+#define ID_FILE_FARINCONTAININGFOLDER   33162
+#define ID_FILE_WINMERGECURRENTFILE     33163
+#define ID_HELP_BUILDENVIROMENT         33164
 
 // Next default values for new objects
 // 
@@ -873,7 +873,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        372
-#define _APS_NEXT_COMMAND_VALUE         33164
+#define _APS_NEXT_COMMAND_VALUE         33165
 #define _APS_NEXT_CONTROL_VALUE         1174
 #define _APS_NEXT_SYMED_VALUE           104
 #endif

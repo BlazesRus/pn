@@ -50,9 +50,18 @@
 
 #include "include/encoding.h"
 
+#include <sstream>
+#include <iomanip>
+
+
 // Other stuff
 #include <dbstate.h>			// Docking window state stuff
 #include <htmlhelp.h>
+
+
+#define _MY_STRINGIZE__(s) #s
+#define _MY_STRINGIZE_(s) _MY_STRINGIZE__(s)
+#define _MY_STRINGIZE(s) _MY_STRINGIZE_(s)
 
 using namespace L10N;
 
@@ -1408,6 +1417,42 @@ LRESULT CMainFrame::OnAppAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCt
 {
 	CAboutDlg dlg;
 	dlg.DoModal();
+	return 0;
+}
+
+LRESULT CMainFrame::OnHelpBuildEnviromemnt(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	CString cEnv;
+	std::stringstream ss;
+	ss << "Build timestamp " << __DATE__ << " " __TIME__  << std::endl
+#ifdef _DEBUG
+		<< "DEBUG BUILD" << std::endl
+#else
+		<< "RELEASE BUILD" << std::endl
+#endif
+		<< "BoostFileVer : " << _MY_STRINGIZE(PROP_BoostFileVer) << std::endl
+		<< "VSVer : " << _MY_STRINGIZE(PROP_VSVer) << std::endl
+		<< "VSNum : " << _MY_STRINGIZE(PROP_VSNum) << std::endl
+		 << "BoostVer : " << _MY_STRINGIZE(PROP_BoostVer) << std::endl
+		 << "PythonMagorVer : " << _MY_STRINGIZE(PROP_PythonMagorVer) << std::endl
+		 << "PythonMinorVer : " << _MY_STRINGIZE(PROP_PythonMinorVer) << std::endl
+		 << "PythonVer : " << _MY_STRINGIZE(PROP_PythonVer) << std::endl
+		 << "BoostPythonTag : " << _MY_STRINGIZE(PROP_BoostPythonTag) << std::endl
+		 << "PythonFolder : " << _MY_STRINGIZE(PROP_PythonFolder) << std::endl
+		 << "PythonInclude : " << _MY_STRINGIZE(PROP_PythonInclude) << std::endl
+		 << "ThirdPartyLibs : " << _MY_STRINGIZE(PROP_ThirdPartyLibs) << std::endl
+		 << "WTLFolder : " << _MY_STRINGIZE(PROP_WTLFolder) << std::endl
+		 << "WTLSvnFolder : " << _MY_STRINGIZE(PROP_WTLSvnFolder) << std::endl
+		 << "BoostFolder : " << _MY_STRINGIZE(PROP_BoostFolder) << std::endl
+		 << "BoostInclude : " << _MY_STRINGIZE(PROP_BoostInclude) << std::endl; 
+	cEnv = CString(ss.str().c_str());
+	int msgboxID = ::MessageBox(
+		NULL,
+		(LPCWSTR)	cEnv,
+		L"Build Enviroment",
+		MB_ICONEXCLAMATION | MB_OK
+	);
+
 	return 0;
 }
 

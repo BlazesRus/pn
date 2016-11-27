@@ -11,10 +11,16 @@
 #include "sinks.h"
 #include "app.h"
 
+#include <sstream>
+#include <iomanip>
+
 using namespace extensions;
 using namespace boost::python;
 
 #define PN_SETSCHEME		(WM_APP+24)
+#define _MY_STRINGIZE__(s) #s
+#define _MY_STRINGIZE_(s) _MY_STRINGIZE__(s)
+#define _MY_STRINGIZE(s) _MY_STRINGIZE_(s)
 
 namespace 
 {
@@ -233,6 +239,32 @@ void PNSetClipboardText(const char* text)
 	}
 }
 
+void PrintBuildEnviroment()
+{
+	std::stringstream ss;
+	ss << "Build timestamp " << __DATE__ << " " __TIME__ << std::endl
+#ifdef _DEBUG
+		<< "DEBUG BUILD" << std::endl
+#else
+		<< "RELEASE BUILD" << std::endl
+#endif
+		<< "BoostFileVer : " << _MY_STRINGIZE(PROP_BoostFileVer) << std::endl
+		<< "VSVer : " << _MY_STRINGIZE(PROP_VSVer) << std::endl
+		<< "VSNum : " << _MY_STRINGIZE(PROP_VSNum) << std::endl
+		<< "BoostVer : " << _MY_STRINGIZE(PROP_BoostVer) << std::endl
+		<< "PythonMagorVer : " << _MY_STRINGIZE(PROP_PythonMagorVer) << std::endl
+		<< "PythonMinorVer : " << _MY_STRINGIZE(PROP_PythonMinorVer) << std::endl
+		<< "PythonVer : " << _MY_STRINGIZE(PROP_PythonVer) << std::endl
+		<< "BoostPythonTag : " << _MY_STRINGIZE(PROP_BoostPythonTag) << std::endl
+		<< "PythonFolder : " << _MY_STRINGIZE(PROP_PythonFolder) << std::endl
+		<< "PythonInclude : " << _MY_STRINGIZE(PROP_PythonInclude) << std::endl
+		<< "ThirdPartyLibs : " << _MY_STRINGIZE(PROP_ThirdPartyLibs) << std::endl
+		<< "WTLFolder : " << _MY_STRINGIZE(PROP_WTLFolder) << std::endl
+		<< "WTLSvnFolder : " << _MY_STRINGIZE(PROP_WTLSvnFolder) << std::endl
+		<< "BoostFolder : " << _MY_STRINGIZE(PROP_BoostFolder) << std::endl
+		<< "BoostInclude : " << _MY_STRINGIZE(PROP_BoostInclude) << std::endl;
+	g_app->AddOutput(ss.str().c_str());
+}
 } // namespace
 
 #define CONSTANT(x) scope().attr(#x) = x
@@ -269,6 +301,8 @@ BOOST_PYTHON_MODULE(pn)
 	def("StringFromPointer", &PNStringFromPointer, "Get a string value from a c-style string pointer");
 
 	def("SetClipboardText", &PNSetClipboardText, "Set clipboard text");
+
+	def("PrintBuildEnviroment", &PrintBuildEnviroment, "Print Build Enviroment");
 
 	CONSTANT(IDOK);
 	CONSTANT(IDCANCEL);

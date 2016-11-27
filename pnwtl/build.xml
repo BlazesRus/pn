@@ -18,6 +18,8 @@
 				<include name="*.dll"/>
 				<include name="*.exe"/>
 				<include name="pn.bat"/>
+				<include name="pn.exe.build.env"/>
+				<include name="pypn.dll.build.env"/>
 				<include name="schemes/*.scheme"/>
  				<include name="schemes/extmap.dat"/>
  				<include name="schemes/*.api"/>
@@ -57,9 +59,9 @@
 				<include name="api-ms-win-crt-*.dll"/>
 				<include name="ucrtbase.dll"/>
 			</zipfileset>
-      
+
+			<!--Windows 7 support-->
 			<zipfileset  dir="${api-ms-win7-dir}">
-				<!--- Windows 7 support  --->
 				<include name="api-ms-win-core-winrt*.dll"/>
 			</zipfileset>
 
@@ -77,7 +79,7 @@
 				<include name="pypn.pdf"/>
 				<include name="boost_python*.dll"/>
 			</zipfileset >
-			<zipfileset  dir="pypn\scripts3k">
+			<zipfileset  dir="bin">
 				<include name="**/*.py"/>
 			</zipfileset >
 		</zip>
