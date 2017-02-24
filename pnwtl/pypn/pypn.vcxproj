@@ -68,7 +68,7 @@
     <Link>
       <AdditionalDependencies>boost_python-vc$(VSNum)-mt-gd-$(BoostFileVer).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)pypn.dll</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\boost-python-$(BoostPythonTag);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(PythonFolder)\libs;$(BoostLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>pypn.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)pypn.pdb</ProgramDatabaseFile>
@@ -80,7 +80,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(SolutionDir)\lib\boost-python-$(BoostPythonTag)\boost_python-vc$(VSNum)-mt-gd-$(BoostFileVer).dll $(TargetDir)
+      <Command>copy $(BoostLib)\boost_python-vc$(VSNum)-mt-gd-$(BoostFileVer).dll $(TargetDir)
 if "$(PythonMagorVer)"=="3" (
 copy scripts3k\init.py $(TargetDir)
 ) else (
@@ -109,7 +109,7 @@ copy scripts\init.py $(TargetDir)
     <Link>
       <AdditionalDependencies>boost_python-vc$(VSNum)-mt-$(BoostFileVer).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)pypn.dll</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\boost-python-$(BoostPythonTag);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(PythonFolder)\libs;$(BoostLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>pypn.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -122,7 +122,7 @@ copy scripts\init.py $(TargetDir)
       <TargetMachine>NotSet</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(SolutionDir)\lib\boost-python-$(BoostPythonTag)\boost_python-vc$(VSNum)-mt-$(BoostFileVer).dll $(TargetDir)
+      <Command>copy $(BoostLib)\boost_python-vc$(VSNum)-mt-$(BoostFileVer).dll $(TargetDir)
 if exist $(TargetDir)\pypn ( 
    echo -- $(TargetDir)\pypn  exists
  ) else ( 

@@ -83,7 +83,7 @@ struct snippet : qi::grammar<Iterator, boost::spirit::ascii::space_type>
 			escape_rule					[phx::bind(&snippet::escape_char, this, _1)] |
 			empty_placeholder_rule		[phx::bind(&snippet::empty_placeholder, this, _1)] | 
 			placeholder_text_rule		[phx::bind(&snippet::text_placeholder, this, _1)] | 
-			variable_rule				[phx::bind(&snippet::variable, this, _1)] |
+			variable_rule				[phx::bind(&snippet::variable_bind, this, _1)] |
 			variable_with_default_rule	[phx::bind(&snippet::variable_default, this, _1)] |
 			short_form_placeholder_rule [phx::bind(&snippet::empty_placeholder, this, _1)] |
 			backtick_expression_rule    [phx::bind(&snippet::backtick, this, _1)]
@@ -158,8 +158,8 @@ struct snippet : qi::grammar<Iterator, boost::spirit::ascii::space_type>
 
 		m_placeholders.push_back(Chunk(chunkType, args.first, args.second));
 	}
-
-	void variable(std::string const& name)
+	// avoid overloading as boost::phoenix::bind does not handle such cases
+	void variable_bind(std::string const& name)
 	{
 		variable(name, std::string(""));
 	}
