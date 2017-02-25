@@ -4,8 +4,8 @@ set PyPnPythonExe=%PYTHONHOME%\python.exe
 set PNWinmergecmd=D:\Program Files (x86)\WinMerge\WinMergeU.exe
 set PYTHONPATH=p:\Projects\git\portable\PyLibrary
 
+"%PyPnPythonExe%" -m pyserg.pypn.fixusersettings "%~dp0settings\config.xml"  >> "%~dp0log.log" 2>&1
 
-"%PyPnPythonExe%" %~dp0scripts\fixusersettings.py "%~dp0settings\config.xml"
 pn.exe --findexts
 start pn.exe
 pause

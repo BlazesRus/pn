@@ -14,6 +14,7 @@
 #include "wrapscintilla.h"
 #include "recorder.h"
 #include "../include/encoding.h"
+#include <cstdlib>
 
 /*#if defined (_DEBUG)
 	#define new DEBUG_NEW
@@ -378,10 +379,17 @@ void App::loadInitScript()
 
 	try
 	{
-		::PathAppend(szpath, "init.py");
-
-		runFile(szpath);
-
+		//std::string str(std::getenv("PYPN_INIT_PY_PATH"));
+		const char* env =  std::getenv("PYPN_INIT_PY_PATH");
+		if (0==env)
+		{
+			::PathAppend(szpath, "init.py");
+			runFile(szpath);
+		}
+		else
+		{
+			runFile(env);
+		}
 		m_glue = main_module.attr("glue");
 	}
 	catch(boost::python::error_already_set&)

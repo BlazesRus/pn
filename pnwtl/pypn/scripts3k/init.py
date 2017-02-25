@@ -1,3 +1,4 @@
+import os.path
 # Standard PN Builtins
 import pn, scintilla, debug
 
@@ -38,7 +39,9 @@ def import_libs(dir):
     
     return library_list
 
-import_libs(pn.AppPath() + "scripts")
+p=pn.AppPath() + "scripts"
+if os.path.exists(p):
+	import_libs(p)
 
 # We're done with our pypn initialization stage
 pn.initializing = False
