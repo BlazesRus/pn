@@ -22,13 +22,16 @@ class Inet
 public:
 	explicit Inet() : m_hInet(NULL), m_hConnection(NULL)
 	{
+		if (true!=OPTIONS->Get(PNSK_GENERAL, _T("DisableInet"), false))
+		{
+		
 		m_hInet = ::InternetOpen(
 			UA_PN,
 			INTERNET_OPEN_TYPE_PRECONFIG,
 			NULL,
 			NULL,
 			/*INTERNET_FLAG_ASYNC*/0);
-
+		}
 		/*if (m_hInet)
 		{
 			::InternetSetStatusCallback(m_hInet, &Inet::InternetStatusCallback);
