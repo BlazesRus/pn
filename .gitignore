@@ -101,4 +101,5 @@ pnse.lib
 *.exp
 
 dist
+pnwtl/.vs/*
 pnwtl/translations/temp.po

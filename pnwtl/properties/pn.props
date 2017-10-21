@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="UserMacros">
-    <BoostFileVer>1_60</BoostFileVer>
-    <VSVer>VS2015</VSVer>
-    <VSNum>140</VSNum>
-    <BoostVer>1_60_0</BoostVer>
+    <BoostFileVer>1_65_1</BoostFileVer>
+    <VSVer>VS2017</VSVer>
+    <VSNum>141</VSNum>
+    <BoostVer>1_65_1</BoostVer>
     <PythonMagorVer>3</PythonMagorVer>
     <PythonMinorVer>4</PythonMinorVer>
     <PythonVer>$(PythonMagorVer)$(PythonMinorVer)</PythonVer>
     <BoostPythonTag>$(PythonMagorVer).$(PythonMinorVer)</BoostPythonTag>
-    <PythonFolder>P:\WinPython-32bit-3.4.3.7\python-3.4.3</PythonFolder>
+    <PythonFolder>P:\WinPython-32bit-3.4.4.7Zero\python-3.4.4</PythonFolder>
     <PythonInclude>$(PythonFolder)\include</PythonInclude>
     <ThirdPartyLibs>$(SolutionDir)..\..\lib</ThirdPartyLibs>
     <WTLFolder>$(ThirdPartyLibs)\wtl\WTL91_5321_Final</WTLFolder>
     <WTLSvnFolder>$(ThirdPartyLibs)\wtl\wtl-code\wtl</WTLSvnFolder>
     <BoostFolder>$(ThirdPartyLibs)\boost\boost-$(BoostVer)_$(VSVer)_wp34</BoostFolder>
-    <BoostInclude>$(BoostFolder)</BoostInclude>
+    <BoostInclude>$(BoostFolder)\include\boost-$(BoostVer)</BoostInclude>
+    <BoostLib>$(BoostFolder)\lib</BoostLib>
   </PropertyGroup>
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
@@ -47,7 +48,7 @@
       <AdditionalIncludeDirectories>$(WTLFolder)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(PythonFolder)\libs;$(BoostLib);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -56,6 +57,6 @@
     </BuildMacro>
   </ItemGroup>
   <PropertyGroup Label="Configuration">
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
 </Project>

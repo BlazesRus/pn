@@ -1519,11 +1519,15 @@ LRESULT CChildFrame::OnGoToDef(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCt
 	
     // Handle definitions: 0: not found, 1: go to source, 2: let user choose.
 	if (defs->Lines.size() == 0)
-    {
-		CString Msg;
-		CA2CT selconv(sel.c_str());
-		Msg.Format(_T("Definition of '%s' not found"), selconv);
-		g_Context.m_frame->SetStatusText(Msg);
+	{
+		/*
+		Using standard library to fix
+		error C4839: non-standard use of class 'ATL::CA2WEX<128>' as an argument to a variadic function
+		*/
+		std::string msg("Definition of '"+ sel +"' not found");
+		CString cMsg(msg.c_str());
+
+		g_Context.m_frame->SetStatusText(cMsg);
 
         return 0;
     }

@@ -20,6 +20,8 @@
 #include "projpropsview.h"
 #include "ExplorerMenu.h"
 
+#include <boost/format.hpp>
+
 using namespace Projects;
 
 #define TCEX_DRAGTIMER	2
@@ -651,9 +653,14 @@ void CProjectTreeCtrl::handleRemove()
 
 				if(pProject->IsDirty())
 				{
+					/*
+					Using standard library to fix
+					error C4839: non-standard use of class 'ATL::CW2CWEX<128>' as an argument to a variadic function
+					*/
 					CT2CW name(pProject->GetName());
-					CStringW msg;
-					msg.Format(IDS_QSAVEPROJBEFOREREMOVE, name);
+
+					std::wstring msgFormat(L10N::StringLoader::GetW(IDS_QSAVEPROJBEFOREREMOVE));
+					std::wstring msg((boost::wformat(msgFormat) % name).str());
 
 					std::wstring title(L10N::StringLoader::GetW(IDR_MAINFRAME));
 					std::wstring saveAndRemove(L10N::StringLoader::GetW(IDS_SAVEANDREMOVE));
@@ -672,7 +679,7 @@ void CProjectTreeCtrl::handleRemove()
 					cfg.hInstance = _Module.GetResourceInstance();
 					cfg.pszWindowTitle = title.c_str();
 					cfg.pszMainIcon = MAKEINTRESOURCEW(TDT_WARNING_ICON);
-					cfg.pszContent = (LPCWSTR)msg;
+					cfg.pszContent = msg.c_str();
 					cfg.dwCommonButtons = 0;
 					cfg.pButtons = confirmRemoveButtons;
 					cfg.cButtons = 3;

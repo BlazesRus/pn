@@ -12,6 +12,7 @@
 #define textclips_h__included
 
 #include <list>
+#include <map>
 
 namespace extensions {
 	class ScriptRegistry;

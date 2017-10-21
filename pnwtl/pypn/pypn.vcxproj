@@ -66,9 +66,9 @@
       <AdditionalOptions>/Zm200 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>boost_python-vc$(VSNum)-mt-gd-$(BoostFileVer).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>boost_python3-vc$(VSNum)-mt-gd-$(BoostFileVer).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)pypn.dll</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\boost-python-$(BoostPythonTag);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>pypn.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)pypn.pdb</ProgramDatabaseFile>
@@ -107,9 +107,9 @@ copy scripts\init.py $(TargetDir)
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>boost_python-vc$(VSNum)-mt-$(BoostFileVer).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)pypn.dll</OutputFile>
-      <AdditionalLibraryDirectories>$(SolutionDir)\lib\boost-python-$(BoostPythonTag);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <ModuleDefinitionFile>pypn.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>

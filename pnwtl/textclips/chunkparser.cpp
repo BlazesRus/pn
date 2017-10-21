@@ -161,15 +161,17 @@ struct snippet : qi::grammar<Iterator, boost::spirit::ascii::space_type>
 
 	void variable(std::string const& name)
 	{
-		variable(name, std::string(""));
+		append_variable(name, std::string(""));
 	}
 
 	void variable_default(std::pair<std::string, std::string> const& details)
 	{
-		variable(details.first, details.second);
+		append_variable(details.first, details.second);
 	}
-
-	void variable(std::string const& name, std::string const& value)
+	/*
+	Use unique method name to avoid 'boost::phoenix::bind': no matching overloaded function found on VS 2017
+	*/
+	void append_variable(std::string const& name, std::string const& value)
 	{
 		std::string realText;
 		if (m_vars == NULL || !m_vars->GetVariable(name.c_str(), realText))

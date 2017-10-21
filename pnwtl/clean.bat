@@ -7,4 +7,5 @@
 @del *.ilk /s
 @Del *.idb /s 
 @Del *.bsc /s
+rd /s/q .vs
 
