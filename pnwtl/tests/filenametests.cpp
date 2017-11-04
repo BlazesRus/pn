@@ -4,6 +4,22 @@
 
 #include "../filename.h"
 
+/*
+Workaround to make stuff compile
+*/
+namespace boost {
+	namespace test_tools {
+		namespace tt_detail {
+
+			assertion_result
+				equal_impl(wchar_t const* left, wchar_t const* right)
+			{
+				return (left && right) ? std::wcscmp(left, right) == 0 : (left == right);
+			}
+		}
+	}
+}
+
 BOOST_AUTO_TEST_SUITE( filename_tests );
 
 BOOST_AUTO_TEST_CASE( get_relative_path_simple )

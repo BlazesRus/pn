@@ -9,7 +9,7 @@
     <PythonMinorVer>4</PythonMinorVer>
     <PythonVer>$(PythonMagorVer)$(PythonMinorVer)</PythonVer>
     <BoostPythonTag>$(PythonMagorVer).$(PythonMinorVer)</BoostPythonTag>
-    <PythonFolder>P:\WinPython-32bit-3.4.4.7Zero\python-3.4.4</PythonFolder>
+    <PythonFolder>P:\WinPython-32bit-3.6.2.0Zero\python-3.6.2</PythonFolder>
     <PythonInclude>$(PythonFolder)\include</PythonInclude>
     <ThirdPartyLibs>$(SolutionDir)..\..\lib</ThirdPartyLibs>
     <WTLFolder>$(ThirdPartyLibs)\wtl\WTL91_5321_Final</WTLFolder>
