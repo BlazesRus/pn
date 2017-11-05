@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="UserMacros">
+    <!-- <WTLVersion>WTL10_7294</WTLVersion>-->
+    <WTLVersion>WTL91_5321_Final</WTLVersion>
+    <OutputTag></OutputTag>
+    <!-- <OutputTag>$(WTLVersion)\</OutputTag> -->
+    
     <BoostFileVer>1_65_1</BoostFileVer>
     <VSVer>VS2017</VSVer>
     <VSNum>141</VSNum>
@@ -9,13 +14,18 @@
     <PythonMinorVer>4</PythonMinorVer>
     <PythonVer>$(PythonMagorVer)$(PythonMinorVer)</PythonVer>
     <BoostPythonTag>$(PythonMagorVer).$(PythonMinorVer)</BoostPythonTag>
-    <PythonFolder>P:\WinPython-32bit-3.6.2.0Zero\python-3.6.2</PythonFolder>
+    <!-- <PythonFolder>P:\WinPython-32bit-3.6.2.0Zero\python-3.6.2</PythonFolder> -->
+    <PythonFolder>P:\WinPython-32bit-3.4.4.7Zero\python-3.4.4</PythonFolder>
     <PythonInclude>$(PythonFolder)\include</PythonInclude>
     <ThirdPartyLibs>$(SolutionDir)..\..\lib</ThirdPartyLibs>
-    <WTLFolder>$(ThirdPartyLibs)\wtl\WTL10_7294</WTLFolder>
-    <BoostFolder>$(ThirdPartyLibs)\boost\boost-$(BoostVer)_$(VSVer)_wp34</BoostFolder>
-    <BoostInclude>$(BoostFolder)\include\boost-$(BoostVer)</BoostInclude>
+    <WTLFolder>$(ThirdPartyLibs)\wtl\$(WTLVersion)</WTLFolder>
+     <BoostFolder>$(ThirdPartyLibs)\boost\boost-$(BoostVer)_$(VSVer)_wp34</BoostFolder> 
+    <!-- <BoostFolder>$(ThirdPartyLibs)\boost\boost-$(BoostVer)</BoostFolder> -->
+     <BoostInclude>$(BoostFolder)\include\boost-$(BoostVer)</BoostInclude> 
+    <!-- <BoostInclude>$(BoostFolder)</BoostInclude> -->
     <BoostLib>$(BoostFolder)\lib</BoostLib>
+    <OutputDirectory>$(SolutionDir)bin\$(Configuration)\$(OutputTag)</OutputDirectory>
+    <IntermediateDirectory>$(SolutionDir)bin\Intermediate\$(ProjectName)\$(Configuration)\$(OutputTag)</IntermediateDirectory>
   </PropertyGroup>
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>

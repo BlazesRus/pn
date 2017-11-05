@@ -1,11 +1,19 @@
 <?xml version="1.0"?>
 <project name="pn" default="zip" basedir=".">
+  <scriptdef language="javascript" name="lowercase">
+    <attribute name="string" /> 
+    <attribute name="to" />
+    project.setProperty(attributes.get("to"),attributes.get("string").toLowerCase());
+  </scriptdef>
+  
    <tstamp>
     <format property="yyyymmdd" pattern="yyyyMMdd" locale="en,GB"/>
   </tstamp>
-  <property name="pnarcname" value="stier08-portablepn-release-${yyyymmdd}"/>
-  <property name="pypnarcname" value="stier08-pypn-release-${yyyymmdd}"/>
-  <property name="pypnarcname.bare" value="stier08-pypn-bin-release-${yyyymmdd}"/>
+  <property name="buildconfig" value="Release"/>
+  <lowercase string="${buildconfig}" to="buildconfigLower" />
+  <property name="pnarcname" value="stier08-portablepn-${buildconfigLower}-${yyyymmdd}"/>
+  <property name="pypnarcname" value="stier08-pypn-${buildconfigLower}-${yyyymmdd}"/>
+  <property name="pypnarcname.bare" value="stier08-pypn-bin-${buildconfigLower}-${yyyymmdd}"/>
   <property name="distdir" value="../distr"/>
   <property name="api-ms-win-dir" value="C:/Program Files (x86)/Windows Kits/10/Redist/ucrt/DLLs/x86"/>
   <property name="api-ms-win7-dir" value="C:\Program Files (x86)/Microsoft SDKs/NuGetPackages/Microsoft.NETCore.Windows.ApiSets-x86/1.0.0/runtimes/win7-x86/native"/>
@@ -15,7 +23,7 @@
   <target name="zip" depends="zippn,zippypn,zippypn-bin"/>
   <target name="zippn">
     <zip destfile="${distdir}\${pnarcname}.zip">
-      <zipfileset  dir="bin">
+      <zipfileset  dir="bin\${buildconfig}">
         <exclude name="*test*.dll"/>
         <exclude name="tests.*"/>
         <include name="*.dll"/>
@@ -50,7 +58,7 @@
         <include name="config.xml"/>
       </zipfileset >
 
-      <zipfileset  dir="bin">
+      <zipfileset  dir="bin\${buildconfig}">
         <include name="**/*.pdb"/>
         <exclude name="**/pypn.pdb"/>
         <exclude name="**/tests.pdb"/>
@@ -75,12 +83,12 @@
 
   <target name="zippypn">
     <zip destfile="${distdir}\${pypnarcname}.zip">
-      <zipfileset  dir="bin">
+      <zipfileset  dir="bin\${buildconfig}">
         <include name="pypn.dll"/>
         <include name="pypn.pdf"/>
         <include name="boost_python*.dll"/>
       </zipfileset >
-      <zipfileset  dir="bin">
+      <zipfileset  dir="bin\${buildconfig}">
         <include name="**/*.py"/>
       </zipfileset >
     </zip>
@@ -88,7 +96,7 @@
 
   <target name="zippypn-bin">
     <zip destfile="${distdir}\${pypnarcname.bare}.zip">
-      <zipfileset  dir="bin">
+      <zipfileset  dir="bin\${buildconfig}">
         <include name="pypn.dll"/>
         <include name="boost_python*.dll"/>
       </zipfileset >

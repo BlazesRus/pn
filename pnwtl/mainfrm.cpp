@@ -1442,7 +1442,6 @@ LRESULT CMainFrame::OnHelpBuildEnviromemnt(WORD /*wNotifyCode*/, WORD /*wID*/, H
 		 << "PythonInclude : " << _MY_STRINGIZE(PROP_PythonInclude) << std::endl
 		 << "ThirdPartyLibs : " << _MY_STRINGIZE(PROP_ThirdPartyLibs) << std::endl
 		 << "WTLFolder : " << _MY_STRINGIZE(PROP_WTLFolder) << std::endl
-		 << "WTLSvnFolder : " << _MY_STRINGIZE(PROP_WTLSvnFolder) << std::endl
 		 << "BoostFolder : " << _MY_STRINGIZE(PROP_BoostFolder) << std::endl
 		 << "BoostInclude : " << _MY_STRINGIZE(PROP_BoostInclude) << std::endl; 
 	cEnv = CString(ss.str().c_str());

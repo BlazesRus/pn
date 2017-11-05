@@ -1,4 +1,5 @@
-@ECHO OFF
+cd /d "%~dp0"
+rem @ECHO OFF
 @del *.obj /s
 @del *.pch /s
 @del *.pdb /s
@@ -7,7 +8,21 @@
 @del *.ilk /s
 @Del *.idb /s 
 @Del *.bsc /s
+@Del *.log /s
+@Del *.tlb /s
 rd /s/q .vs
-rd /s/q Release
-rd /s/q Debug
+
+for /f "tokens=*" %%G in ('dir /b /s /a:d "Intermediate"') do (
+rd /s/q "%%G"
+)
+
+for /f "tokens=*" %%G in ('dir /b /s /a:d "Release"') do (
+rd /s/q "%%G"
+)
+
+for /f "tokens=*" %%G in ('dir /b /s /a:d "Debug"') do (
+rd /s/q "%%G"
+)
+
+pause
 
