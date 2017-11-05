@@ -80,7 +80,7 @@
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(SolutionDir)\lib\boost-python-$(BoostPythonTag)\boost_python-vc$(VSNum)-mt-gd-$(BoostFileVer).dll $(TargetDir)
+      <Command>copy $(BoostLib)\boost_python3-vc$(VSNum)-mt-gd-$(BoostFileVer).dll $(TargetDir)
 if "$(PythonMagorVer)"=="3" (
 copy scripts3k\init.py $(TargetDir)
 ) else (
@@ -122,7 +122,8 @@ copy scripts\init.py $(TargetDir)
       <TargetMachine>NotSet</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(SolutionDir)\lib\boost-python-$(BoostPythonTag)\boost_python-vc$(VSNum)-mt-$(BoostFileVer).dll $(TargetDir)
+      <Command>copy $(BoostLib)\boost_python3-vc$(VSNum)-mt-$(BoostFileVer).dll $(TargetDir)
+
 if exist $(TargetDir)\pypn ( 
    echo -- $(TargetDir)\pypn  exists
  ) else ( 
