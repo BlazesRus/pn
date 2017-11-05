@@ -14,15 +14,12 @@
     <PythonMinorVer>4</PythonMinorVer>
     <PythonVer>$(PythonMagorVer)$(PythonMinorVer)</PythonVer>
     <BoostPythonTag>$(PythonMagorVer).$(PythonMinorVer)</BoostPythonTag>
-    <!-- <PythonFolder>P:\WinPython-32bit-3.6.2.0Zero\python-3.6.2</PythonFolder> -->
     <PythonFolder>P:\WinPython-32bit-3.4.4.7Zero\python-3.4.4</PythonFolder>
     <PythonInclude>$(PythonFolder)\include</PythonInclude>
     <ThirdPartyLibs>$(SolutionDir)..\..\lib</ThirdPartyLibs>
     <WTLFolder>$(ThirdPartyLibs)\wtl\$(WTLVersion)</WTLFolder>
-     <BoostFolder>$(ThirdPartyLibs)\boost\boost-$(BoostVer)_$(VSVer)_wp34</BoostFolder> 
-    <!-- <BoostFolder>$(ThirdPartyLibs)\boost\boost-$(BoostVer)</BoostFolder> -->
-     <BoostInclude>$(BoostFolder)\include\boost-$(BoostVer)</BoostInclude> 
-    <!-- <BoostInclude>$(BoostFolder)</BoostInclude> -->
+    <BoostFolder>$(ThirdPartyLibs)\boost\boost-$(BoostVer)_$(VSVer)_wp34</BoostFolder> 
+    <BoostInclude>$(BoostFolder)\include\boost-$(BoostVer)</BoostInclude> 
     <BoostLib>$(BoostFolder)\lib</BoostLib>
     <OutputDirectory>$(SolutionDir)bin\$(Configuration)\$(OutputTag)</OutputDirectory>
     <IntermediateDirectory>$(SolutionDir)bin\Intermediate\$(ProjectName)\$(Configuration)\$(OutputTag)</IntermediateDirectory>
