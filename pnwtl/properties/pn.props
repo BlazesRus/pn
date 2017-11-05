@@ -12,8 +12,7 @@
     <PythonFolder>P:\WinPython-32bit-3.6.2.0Zero\python-3.6.2</PythonFolder>
     <PythonInclude>$(PythonFolder)\include</PythonInclude>
     <ThirdPartyLibs>$(SolutionDir)..\..\lib</ThirdPartyLibs>
-    <WTLFolder>$(ThirdPartyLibs)\wtl\WTL91_5321_Final</WTLFolder>
-    <WTLSvnFolder>$(ThirdPartyLibs)\wtl\wtl-code\wtl</WTLSvnFolder>
+    <WTLFolder>$(ThirdPartyLibs)\wtl\WTL10_7294</WTLFolder>
     <BoostFolder>$(ThirdPartyLibs)\boost\boost-$(BoostVer)_$(VSVer)_wp34</BoostFolder>
     <BoostInclude>$(BoostFolder)\include\boost-$(BoostVer)</BoostInclude>
     <BoostLib>$(BoostFolder)\lib</BoostLib>
@@ -38,7 +37,6 @@
         /DPROP_PythonInclude=$(PythonInclude)
         /DPROP_ThirdPartyLibs=$(ThirdPartyLibs)
         /DPROP_WTLFolder=$(WTLFolder)
-        /DPROP_WTLSvnFolder=$(WTLSvnFolder)
         /DPROP_BoostFolder=$(BoostFolder)
         /DPROP_BoostInclude=$(BoostInclude)
         %(AdditionalOptions)

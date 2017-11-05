@@ -8,4 +8,6 @@
 @Del *.idb /s 
 @Del *.bsc /s
 rd /s/q .vs
+rd /s/q Release
+rd /s/q Debug
 

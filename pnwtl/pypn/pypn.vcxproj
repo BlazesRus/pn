@@ -155,7 +155,6 @@ echo PythonFolder : $(PythonFolder) &gt;&gt; $(TargetPath).build.env
 echo PythonInclude : $(PythonInclude) &gt;&gt; $(TargetPath).build.env
 echo ThirdPartyLibs : $(ThirdPartyLibs) &gt;&gt; $(TargetPath).build.env
 echo WTLFolder : $(WTLFolder) &gt;&gt; $(TargetPath).build.env
-echo WTLSvnFolder : $(WTLSvnFolder) &gt;&gt; $(TargetPath).build.env
 echo BoostFolder : $(BoostFolder) &gt;&gt; $(TargetPath).build.env
 echo BoostInclude : $(BoostInclude) &gt;&gt; $(TargetPath).build.env</Command>
     </PostBuildEvent>

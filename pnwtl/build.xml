@@ -16,18 +16,18 @@
   <target name="zippn">
     <zip destfile="${distdir}\${pnarcname}.zip">
       <zipfileset  dir="bin">
+        <exclude name="*test*.dll"/>
+        <exclude name="tests.*"/>
         <include name="*.dll"/>
         <include name="*.exe"/>
         <include name="pn.bat"/>
         <include name="pn.exe.build.env"/>
         <include name="pypn.dll.build.env"/>
         <include name="schemes/*.scheme"/>
-         <include name="schemes/extmap.dat"/>
-         <include name="schemes/*.api"/>
-         <include name="presets/*.xml"/>
-         <include name="ctags/*.*"/>
-        <exclude name="*test*.dll"/>
-        <exclude name="test.*"/>
+        <include name="schemes/extmap.dat"/>
+        <include name="schemes/*.api"/>
+        <include name="presets/*.xml"/>
+        <include name="ctags/*.*"/>
         <exclude name="boost_python*.dll"/>
         <exclude name="pypn.dll"/>
       </zipfileset >
@@ -53,6 +53,7 @@
       <zipfileset  dir="bin">
         <include name="**/*.pdb"/>
         <exclude name="**/pypn.pdb"/>
+        <exclude name="**/tests.pdb"/>
       </zipfileset>
 
       <zipfileset  dir="${api-ms-win-dir}">
