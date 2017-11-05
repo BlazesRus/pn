@@ -19,7 +19,7 @@
     <ThirdPartyLibs>$(SolutionDir)..\..\lib</ThirdPartyLibs>
     <WTLFolder>$(ThirdPartyLibs)\wtl\$(WTLVersion)</WTLFolder>
     <BoostFolder>$(ThirdPartyLibs)\boost\boost-$(BoostVer)_$(VSVer)_wp36</BoostFolder> 
-     <BoostInclude>$(BoostFolder)\include\boost-$(BoostVer)</BoostInclude> 
+    <BoostInclude>$(BoostFolder)\include\boost-$(BoostVer)</BoostInclude> 
     <BoostLib>$(BoostFolder)\lib</BoostLib>
     <OutputDirectory>$(SolutionDir)bin\$(Configuration)\$(OutputTag)</OutputDirectory>
     <IntermediateDirectory>$(SolutionDir)bin\Intermediate\$(ProjectName)\$(Configuration)\$(OutputTag)</IntermediateDirectory>
