@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="UserMacros">
-    <BoostFileVer>1_60</BoostFileVer>
+    <BoostFileVer>1_68</BoostFileVer>
     <VSVer>VS2015</VSVer>
     <VSNum>140</VSNum>
-    <BoostVer>1_60_0</BoostVer>
+    <BoostVer>1_68_0</BoostVer>
     <PythonMagorVer>3</PythonMagorVer>
-    <PythonMinorVer>4</PythonMinorVer>
+    <PythonMinorVer>7</PythonMinorVer>
     <PythonVer>$(PythonMagorVer)$(PythonMinorVer)</PythonVer>
     <BoostPythonTag>$(PythonMagorVer).$(PythonMinorVer)</BoostPythonTag>
     <PythonFolder>D:\Python$(PythonVer)</PythonFolder>
