@@ -75,7 +75,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>boost_unit_test_framework-vc$(VSNum)-mt-gd-$(BoostFileVer).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>boost_unit_test_framework-vc$(VSNum)-mt-gd-x32-$(BoostFileVer).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy $(SolutionDir)\lib\boost_unit_test\boost_unit_test_framework-vc$(VSNum)-mt-gd-$(BoostFileVer).dll $(TargetDir)</Command>
@@ -100,7 +100,7 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>boost_unit_test_framework-vc$(VSNum)-mt-$(BoostFileVer).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>boost_unit_test_framework-vc$(VSNum)-mt-x32-$(BoostFileVer).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy $(SolutionDir)\lib\boost_unit_test\boost_unit_test_framework-vc$(VSNum)-mt-$(BoostFileVer).dll $(TargetDir)</Command>
