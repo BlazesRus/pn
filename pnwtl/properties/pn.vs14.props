@@ -11,11 +11,13 @@
     <BoostPythonTag>$(PythonMagorVer).$(PythonMinorVer)</BoostPythonTag>
     <PythonFolder>D:\Python$(PythonVer)</PythonFolder>
     <PythonInclude>$(PythonFolder)\include</PythonInclude>
+    <PythonLib>$(PythonFolder)\libs</PythonLib>
     <ThirdPartyLibs>$(SolutionDir)..\..\lib</ThirdPartyLibs>
     <WTLFolder>$(ThirdPartyLibs)\wtl\WTL91_5321_Final</WTLFolder>
     <WTLSvnFolder>$(ThirdPartyLibs)\wtl\wtl-code\wtl</WTLSvnFolder>
     <BoostFolder>$(ThirdPartyLibs)\boost\boost-$(BoostVer)_$(VSVer)</BoostFolder>
     <BoostInclude>$(BoostFolder)</BoostInclude>
+    <BoostLib>$(BoostFolder)\lib</BoostLib>
   </PropertyGroup>
 <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
@@ -30,7 +32,7 @@
       <AdditionalIncludeDirectories>$(WTLSvnFolder)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-    <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(BoostLib);$(PythonLib)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
