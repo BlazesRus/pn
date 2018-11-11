@@ -17,7 +17,7 @@
   <property name="distdir" value="../distr"/>
   <property name="api-ms-win-dir" value="C:/Program Files (x86)/Windows Kits/10/Redist/ucrt/DLLs/x86"/>
   <property name="api-ms-win7-dir" value="C:\Program Files (x86)/Microsoft SDKs/NuGetPackages/Microsoft.NETCore.Windows.ApiSets-x86/1.0.0/runtimes/win7-x86/native"/>
-  <property name="vs-redist-dir" value="C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/VC/Redist/MSVC/14.11.25325/x86/Microsoft.VC141.CRT"/>
+  <property name="vs-redist-dir" value="C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/redist/x86/Microsoft.VC140.CRT"/>
   
   
   <target name="zip" depends="zippn,zippypn,zippypn-bin"/>
