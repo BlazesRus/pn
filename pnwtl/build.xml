@@ -17,7 +17,6 @@
 			<zipfileset  dir="bin">
 				<include name="*.dll"/>
 				<include name="*.exe"/>
-				<include name="pn.bat"/>
 				<include name="pn.exe.build.env"/>
 				<include name="pypn.dll.build.env"/>
 				<include name="schemes/*.scheme"/>
