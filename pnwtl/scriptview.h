@@ -46,6 +46,9 @@ protected:
 	LRESULT OnCtlColor(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM lParam, BOOL& /*bHandled*/);
 	LRESULT OnTreeDblClick(int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHandled*/);
 
+	// child lookup. required for subgroups support
+	HTREEITEM findChild(HTREEITEM root,LPCTSTR name);
+
 	HTREEITEM findScript(LPCTSTR group, LPCTSTR name);
 	HTREEITEM findGroup(LPCTSTR name);
 	HTREEITEM addGroup(LPCTSTR name);

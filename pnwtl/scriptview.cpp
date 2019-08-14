@@ -13,6 +13,11 @@
 #include "scriptregistry.h"
 #include "scriptview.h"
 
+#include <iostream>
+#include <string>
+#include <boost/tokenizer.hpp>
+#include <boost/foreach.hpp>
+
 CScriptDocker::CScriptDocker()
 {
 }
@@ -81,6 +86,7 @@ LRESULT CScriptDocker::OnTreeDblClick(int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHan
 
 void CScriptDocker::OnScriptAdded(ScriptGroup* group, Script* script)
 {
+
 	CA2CT groupName(group->GetName());
 	HTREEITEM ti_group = findGroup(groupName);
 	if(!ti_group)
@@ -127,24 +133,77 @@ HTREEITEM CScriptDocker::findScript(LPCTSTR group, LPCTSTR name)
 	return NULL;
 }
 
-HTREEITEM CScriptDocker::findGroup(LPCTSTR name)
+HTREEITEM CScriptDocker::findChild(HTREEITEM root,LPCTSTR name)
 {
-	HTREEITEM node = m_view.GetRootItem();
-	while(node)
+	HTREEITEM node;
+	if (root != NULL)
+	{
+		 node = m_view.GetChildItem(root);
+	}
+	else
+	{
+		 node = m_view.GetRootItem();
+	}
+	while (node)
 	{
 		CString csName;
 		m_view.GetItemText(node, csName);
-		if(csName.CompareNoCase(name) == 0)
+		if (csName.CompareNoCase(name) == 0)
+		{
 			return node;
+		}
 		node = m_view.GetNextSiblingItem(node);
 	}
 
 	return NULL;
 }
 
+HTREEITEM CScriptDocker::findGroup(LPCTSTR name)
+{
+	std::wstring  wname(name);
+
+	boost::char_separator<wchar_t> sep(L"/");
+	boost::tokenizer<boost::char_separator<wchar_t>,
+		std::wstring::const_iterator, std::wstring>  tokens(wname, sep);
+
+	HTREEITEM root = NULL;
+
+	BOOST_FOREACH(std::wstring const& token, tokens)
+	{
+		CString curname(token.c_str());
+		root = findChild(root, (LPCTSTR)curname);
+		if (root == NULL)
+		{
+			break;
+		}
+	}
+	return root;
+}
+
 HTREEITEM CScriptDocker::addGroup(LPCTSTR name)
 {
-	HTREEITEM group = m_view.InsertItem(name, NULL, NULL);
+	std::wstring  wname(name);
+
+	boost::char_separator<wchar_t> sep(L"/");
+	boost::tokenizer<boost::char_separator<wchar_t>,
+		std::wstring::const_iterator, std::wstring>  tokens(wname, sep);
+
+	HTREEITEM group = NULL;
+
+	BOOST_FOREACH(std::wstring const& token, tokens)
+	{
+		CString curname(token.c_str());
+		HTREEITEM child = findChild(group,(LPCTSTR)curname);
+		if (child ==NULL)
+		{ 
+
+			group = m_view.InsertItem((LPCTSTR)curname, group, NULL);
+		}
+		else
+		{
+			group = child;
+		}
+	}
 	return group;
 }
 
