@@ -12,6 +12,7 @@
 #include "OptionsManager.h"
 #include "files.h"
 #include "fileutil.h"
+#include <stdlib.h>
 
 //////////////////////////////////////////////////////////////////////////////
 // Options
@@ -322,14 +323,24 @@ void Options::GetPNPath(tstring& path, int pathtype)
 
 void Options::StaticGetPNPath(tstring& path)
 {
-	TCHAR buf[MAX_PATH +1];
-	buf[0] = '\0';
+	const wchar_t* env = _wgetenv(L"PORTABLE_PN_HOME");
+	if (0 != env)
+	{
+		path = tstring(env);
+	}
+	else
+	{
+		TCHAR buf[MAX_PATH + 1];
+		buf[0] = '\0';
 
-	GetModuleFileName(NULL, buf, MAX_PATH);
-	path = buf;
-	
-	int cutoff = path.rfind(_T('\\'));
-	path = path.substr(0, cutoff+1);
+		GetModuleFileName(NULL, buf, MAX_PATH);
+		path = buf;
+
+		int cutoff = path.rfind(_T('\\'));
+		path = path.substr(0, cutoff + 1);
+	}
+
+
 }
 
 void Options::SetUserSettingsPath(LPCTSTR path)
@@ -372,9 +383,14 @@ wchar_t* Options::GetS(LPCTSTR subkey, LPCTSTR value, LPCTSTR szDefault)
 Options* OptionsFactory::GetOptions(EOptionsType type, Options* oldOptions)
 {
 	Options* newInstance = NULL;
+	const char* env = std::getenv("PORTABLE_PN_HOME");
 	switch(type)
 	{
 		case OTRegistry:
+			if (env != 0)
+			{
+				throw std::runtime_error("PORTABLE_PN_HOME can't be used with registry options!!!");
+			}
 			newInstance = new RegistryOptions;
 			break;
 		case OTIni:

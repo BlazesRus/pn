@@ -195,11 +195,11 @@ int Run(LPTSTR /*lpstrCmdLine*/ = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	return nRet;
 }
 
-extern "C" __declspec (dllexport) int __cdecl dll_exe_main(LPTSTR lpstrCmdLine, int nCmdShow)
+extern "C" __declspec (dllexport) void __cdecl dll_exe_main(HWND hwnd, HINSTANCE hinst, LPSTR lpszCmdLine, int nCmdShow)
 //int __declspec(dllexport) __stdcall dll_exe_main(LPTSTR lpstrCmdLine, int nCmdShow)
 {
-	int nRet = Run(lpstrCmdLine, nCmdShow);
-	return nRet;
+	int nRet = Run();
+	/*return nRet;*/
 }
 
 BOOL APIENTRY DllMain( HANDLE hModule, 

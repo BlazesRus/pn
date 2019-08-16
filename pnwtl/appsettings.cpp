@@ -108,7 +108,7 @@ bool ExtDetails::Exists() const
 // AppSettings
 
 AppSettings::AppSettings() :
-	m_bUseIni(false),
+	m_bUseIni(std::getenv("PORTABLE_PN_HOME") !=0),
 	m_userPath(_T("")),
 	m_bAppSettingsPathSpecified(false)
 {

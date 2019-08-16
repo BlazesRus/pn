@@ -22,7 +22,7 @@ class Inet
 public:
 	explicit Inet() : m_hInet(NULL), m_hConnection(NULL)
 	{
-		if (true!=OPTIONS->Get(PNSK_GENERAL, _T("DisableInet"), false))
+		if (true!=OPTIONS->Get(PNSK_GENERAL, _T("DisableInet"), false) && 0==std::getenv("PORTABLE_PN_HOME"))
 		{
 		
 		m_hInet = ::InternetOpen(
