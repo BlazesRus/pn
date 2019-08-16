@@ -11,32 +11,47 @@
   </tstamp>
   <property name="buildconfig" value="Release"/>
   <lowercase string="${buildconfig}" to="buildconfigLower" />
-  <property name="pnarcname" value="stier08-portablepn-${buildconfigLower}-${yyyymmdd}"/>
-  <property name="pypnarcname" value="stier08-pypn-${buildconfigLower}-${yyyymmdd}"/>
-  <property name="pypnarcname.bare" value="stier08-pypn-bin-${buildconfigLower}-${yyyymmdd}"/>
+  <property name="pnthirdpartyarcname" value="stier08-portablepn-thirdparty-${buildconfigLower}-${yyyymmdd}"/>
+  <property name="pndllarcname" value="stier08-portablepn-dll-${buildconfigLower}-${yyyymmdd}"/>
+  <property name="pnexearcname" value="stier08-portablepn-exe-${buildconfigLower}-${yyyymmdd}"/>
+  <property name="pnpdbarcname" value="stier08-portablepn-pdb-${buildconfigLower}-${yyyymmdd}"/>
+  <property name="pncorearcname" value="stier08-portablepn-core-${buildconfigLower}-${yyyymmdd}"/>
+  <property name="pypndllarcname" value="stier08-portablepypn-dll-${buildconfigLower}-${yyyymmdd}"/>
+  <property name="pypnpyarcname" value="stier08-portablepypn-py-${buildconfigLower}-${yyyymmdd}"/>
+  <property name="pypnthirdpartyarcname" value="stier08-portablepypn-thirdparty-${buildconfigLower}-${yyyymmdd}"/>
   <property name="distdir" value="../distr"/>
   <property name="api-ms-win-dir" value="C:/Program Files (x86)/Windows Kits/10/Redist/ucrt/DLLs/x86"/>
   <property name="api-ms-win7-dir" value="C:\Program Files (x86)/Microsoft SDKs/NuGetPackages/Microsoft.NETCore.Windows.ApiSets-x86/1.0.0/runtimes/win7-x86/native"/>
   <property name="vs-redist-dir" value="C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/redist/x86/Microsoft.VC140.CRT"/>
   
   
-  <target name="zip" depends="zippn,zippypn,zippypn-bin"/>
-  <target name="zippn">
-    <zip destfile="${distdir}\${pnarcname}.zip">
-      <zipfileset  dir="bin\${buildconfig}">
-        <exclude name="*test*.dll"/>
-        <exclude name="tests.*"/>
+  <target name="zip" depends="zippnthirdparty,zippndll,zippnpdb,zippnexe,zippypndll,zippypnpy,zippypnthirdparty"/>
+  
+  <target name="zip-pnthirdparty">
+    <zip destfile="${targetzip}" update="true">
+      <zipfileset  dir="${api-ms-win-dir}">
+        <include name="api-ms-win-core-*.dll"/>
+        <include name="api-ms-win-crt-*.dll"/>
+        <include name="ucrtbase.dll"/>
+      </zipfileset>
+      <!--Windows 7 support-->
+      <zipfileset  dir="${api-ms-win7-dir}">
+        <include name="api-ms-win-core-winrt*.dll"/>
+      </zipfileset>
+      <zipfileset  dir="${vs-redist-dir}">
         <include name="*.dll"/>
-        <include name="*.exe"/>
-        <include name="pn.exe.build.env"/>
-        <include name="pypn.dll.build.env"/>
+      </zipfileset >      
+    </zip>
+  </target>
+  <target name="zip-pncore">
+    <zip destfile="${targetzip}" update="true">
+      <zipfileset  dir="bin">
         <include name="schemes/*.scheme"/>
         <include name="schemes/extmap.dat"/>
         <include name="schemes/*.api"/>
         <include name="presets/*.xml"/>
         <include name="ctags/*.*"/>
-        <exclude name="boost_python*.dll"/>
-        <exclude name="pypn.dll"/>
+        <include name="clips/*.*"/>
       </zipfileset >
       <zipfileset  dir="doc">
         <include name="credits.txt"/>
@@ -50,58 +65,144 @@
       <zipfileset  dir="doc\help">
         <include name="pn2.chm"/>
       </zipfileset >
-      <zipfileset  dir="bin\clips" prefix="clips">
-        <include name="*\*.clips"/>
-      </zipfileset >
       <zipfileset  dir="installer\configs\portable">
         <include name="config.xml"/>
       </zipfileset >
-
-      <zipfileset  dir="bin\${buildconfig}">
-        <include name="**/*.pdb"/>
-        <exclude name="**/pypn.pdb"/>
-        <exclude name="**/tests.pdb"/>
+      <zipfileset  dir="..\bin\Output\${buildconfig}\scintilla">
+        <include name="SciLexer.dll"/>
       </zipfileset>
-
-      <zipfileset  dir="${api-ms-win-dir}">
-        <include name="api-ms-win-core-*.dll"/>
-        <include name="api-ms-win-crt-*.dll"/>
-        <include name="ucrtbase.dll"/>
+      <zipfileset  dir="..\bin\Output\${buildconfig}\pnse">
+        <include name="pnse.dll"/>
       </zipfileset>
-
-      <!--Windows 7 support-->
-      <zipfileset  dir="${api-ms-win7-dir}">
-        <include name="api-ms-win-core-winrt*.dll"/>
+      <zipfileset  dir="..\bin\Output\${buildconfig}\pnlang">
+        <include name="pnlang.dll"/>
       </zipfileset>
-
-      <zipfileset  dir="${vs-redist-dir}">
-        <include name="*.dll"/>
-      </zipfileset >      
+      <zipfileset  dir="..\bin\Output\${buildconfig}\CustomScheme">
+        <include name="CustomScheme.dll"/>
+      </zipfileset>
+      <zipfileset  dir="..\bin\Output\${buildconfig}\ctagsnavigator">
+        <include name="ctagsnavigator.dll"/>
+      </zipfileset>   
     </zip>
   </target>
 
-  <target name="zippypn">
-    <zip destfile="${distdir}\${pypnarcname}.zip">
-      <zipfileset  dir="bin\${buildconfig}">
+  <target name="zip-pnexe">
+    <zip destfile="${targetzip}" update="true">
+      <zipfileset  dir="..\bin\Output\${buildconfig}\pn">
+        <include name="pn.exe"/>
+        <include name="pn.exe.build.env"/>
+      </zipfileset>
+    </zip>
+  </target>
+
+  <target name="zip-pnpdb">
+    <zip destfile="${targetzip}" update="true">
+      <zipfileset  dir="..\bin\Output\${buildconfig}\pn">
+        <include name="*.pdb"/>
+      </zipfileset>
+      <zipfileset  dir="..\bin\Output\${buildconfig}\pndll">
+        <include name="*.pdb"/>
+      </zipfileset>
+      <zipfileset  dir="..\bin\Output\${buildconfig}\pnse">
+        <include name="*.pdb"/>
+      </zipfileset>
+      <zipfileset  dir="..\bin\Output\${buildconfig}\CustomScheme">
+        <include name="*.pdb"/>
+      </zipfileset>
+      <zipfileset  dir="..\bin\Output\${buildconfig}\ctagsnavigator">
+        <include name="*.pdb"/>
+      </zipfileset>
+      <zipfileset  dir="..\bin\Output\${buildconfig}\scintilla">
+        <include name="*.pdb"/>
+      </zipfileset>
+    </zip>
+  </target>
+  
+  <target name="zip-pndll">
+    <zip destfile="${targetzip}" update="true">
+      <zipfileset  dir="..\bin\Output\${buildconfig}\pn">
+        <include name="pndll.dll"/>
+        <include name="pndll.dll.build.env"/>
+      </zipfileset>
+    </zip>
+  </target>
+  
+  <target name="zip-pypndll">
+    <zip destfile="${targetzip}" update="true">
+      <zipfileset  dir="..\bin\Output\${buildconfig}\pypn">
         <include name="pypn.dll"/>
-        <include name="pypn.pdf"/>
-        <include name="boost_python*.dll"/>
-      </zipfileset >
-      <zipfileset  dir="bin\${buildconfig}">
-        <include name="**/*.py"/>
-      </zipfileset >
+        <include name="pypn.dll.build.env"/>
+      </zipfileset>
     </zip>
   </target>
 
-  <target name="zippypn-bin">
-    <zip destfile="${distdir}\${pypnarcname.bare}.zip">
-      <zipfileset  dir="bin\${buildconfig}">
-        <include name="pypn.dll"/>
-        <include name="boost_python*.dll"/>
-      </zipfileset >
+  <target name="zip-pypnthirdparty">
+    <zip destfile="${targetzip}" update="true">
+      <zipfileset  dir="..\bin\Output\${buildconfig}\pypn">
+        <include name="boost_*.dll"/>
+      </zipfileset>
+    </zip>
+  </target>
+  
+  <target name="zip-pypnpy">
+    <zip destfile="${targetzip}" update="true">
+      <zipfileset  dir="..\bin\Output\${buildconfig}\pypn">
+        <include name="*.py"/>
+        <include name="pypn/*.py"/>
+        <include name="scripts/*.py"/>
+      </zipfileset>
     </zip>
   </target>
 
+  
+  <target name="zippnthirdparty">
+    <antcall target="zip-pnthirdparty"> 
+        <param name="targetzip" value="${distdir}\${pnthirdpartyarcname}.zip"/>
+    </antcall>
+  </target>
+
+  <target name="zippncore">
+    <antcall target="zip-pncore"> 
+        <param name="targetzip" value="${distdir}\${pncorearcname}.zip"/>
+    </antcall>
+  </target>
+  
+  <target name="zippndll">
+    <antcall target="zip-pndll"> 
+        <param name="targetzip" value="${distdir}\${pndllarcname}.zip"/>
+    </antcall>
+  </target>
+
+  <target name="zippnpdb">
+    <antcall target="zip-pnpdb"> 
+        <param name="targetzip" value="${distdir}\${pnpdbarcname}.zip"/>
+    </antcall>
+  </target>
+  
+  <target name="zippnexe">
+    <antcall target="zip-pnexe"> 
+        <param name="targetzip" value="${distdir}\${pnexearcname}.zip"/>
+    </antcall>
+  </target>
+
+  <target name="zippypndll">
+    <antcall target="zip-pypndll"> 
+        <param name="targetzip" value="${distdir}\${pypndllarcname}.zip"/>
+    </antcall>
+  </target>
+
+  <target name="zippypnpy">
+    <antcall target="zip-pypnpy"> 
+        <param name="targetzip" value="${distdir}\${pypnpyarcname}.zip"/>
+    </antcall>
+  </target>
+
+  <target name="zippypnthirdparty">
+    <antcall target="zip-pypnthirdparty"> 
+        <param name="targetzip" value="${distdir}\${pypnthirdpartyarcname}.zip"/>
+    </antcall>
+  </target>
+  
 </project>
 
 

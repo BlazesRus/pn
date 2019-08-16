@@ -62,7 +62,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <OutDir>$(OutputDirectory)</OutDir>
-    <IntDir>$(IntermediateDirectory)</IntDir>
+    <IntDir>$(IntermediateDirectory)\${ProjectName}</IntDir>
     <NMakeBuildCommandLine>$(ProjectDir)build.bat $(SolutionDir)bin $(OutputDirectory)</NMakeBuildCommandLine>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -71,7 +71,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <OutDir>$(OutputDirectory)</OutDir>
-    <IntDir>$(IntermediateDirectory)</IntDir>
+    <IntDir>$(IntermediateDirectory)\${ProjectName}</IntDir>
     <NMakeBuildCommandLine>$(ProjectDir)build.bat $(SolutionDir)bin $(OutputDirectory)</NMakeBuildCommandLine>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
