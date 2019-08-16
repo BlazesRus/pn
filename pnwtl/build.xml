@@ -120,7 +120,7 @@
   
   <target name="zip-pndll">
     <zip destfile="${targetzip}" update="true">
-      <zipfileset  dir="..\bin\Output\${buildconfig}\pn">
+      <zipfileset  dir="..\bin\Output\${buildconfig}\pndll">
         <include name="pndll.dll"/>
         <include name="pndll.dll.build.env"/>
       </zipfileset>

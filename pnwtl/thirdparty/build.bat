@@ -1,4 +1,8 @@
 set bindir=%~1
 set outdir=%~2
 
-%~dp0copybin.bat %bindir% %outdir%
+rem %~dp0copybin.bat %bindir% %outdir%
+echo ------------------ DUMMY ---------------------
+echo %bindir%
+echo %outdir%
+echo ------------------ DUMMY ---------------------
