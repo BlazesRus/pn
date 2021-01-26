@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.IO;
-using System.Xml.Linq;
 using System.Text.RegularExpressions;
-using System.Xml.Serialization;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace ApiConvert
 {
@@ -43,17 +41,17 @@ namespace ApiConvert
         public string Name { get; set; }
 
         [XmlIgnore]
-        public bool Func 
+        public bool Func
         {
-            get { return this.func; }
+            get => this.func;
             set { this.func = value; this.FuncStrSpecified = this.func; }
         }
 
         [XmlAttribute("func")]
         public string FuncStr
         {
-            get { return this.Func ? "yes" : "no"; }
-            set { this.Func = value == "yes" ? true : false; }
+            get => this.Func ? "yes" : "no";
+            set => this.Func = value == "yes" ? true : false;
         }
 
         [XmlIgnore]
@@ -63,9 +61,9 @@ namespace ApiConvert
         public List<Overload> Overloads { get; set; }
     }
 
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             string[] api = File.ReadAllLines(args[0]);
 
@@ -107,22 +105,22 @@ namespace ApiConvert
                         KeyWord kw = GetEntry(groupedEntries, name);
                         kw.Func = true;
                         kw.Overloads.Add(new Overload
-                            {
-                                ReturnValue = ret,
-                                Params = paramstr.Select(p => new Param { Name = p }).ToList()
-                            });
+                        {
+                            ReturnValue = ret,
+                            Params = paramstr.Select(p => new Param { Name = p }).ToList()
+                        });
                     }
                 }
             }
 
-            using (var writer = XmlWriter.Create(args[1], new XmlWriterSettings { Encoding = Encoding.UTF8, Indent = true }))
+            using (XmlWriter writer = XmlWriter.Create(args[1], new XmlWriterSettings { Encoding = Encoding.UTF8, Indent = true }))
             {
                 writer.WriteStartDocument();
                 writer.WriteStartElement("AutoComplete");
                 XmlSerializer ser = new XmlSerializer(typeof(KeyWord));
                 XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
                 ns.Add("", "");
-                foreach (var kw in groupedEntries.Values.OrderBy(k => k.Name))
+                foreach (KeyWord kw in groupedEntries.Values.OrderBy(k => k.Name))
                 {
                     ser.Serialize(writer, kw, ns);
                 }
@@ -132,13 +130,12 @@ namespace ApiConvert
 
         private static KeyWord GetEntry(Dictionary<string, KeyWord> all, string apiKey)
         {
-            KeyWord ret;
-            if (!all.TryGetValue(apiKey, out ret))
+            if (!all.TryGetValue(apiKey, out KeyWord ret))
             {
                 ret = new KeyWord { Name = apiKey };
                 all[apiKey] = ret;
             }
-            
+
             return ret;
         }
     }
